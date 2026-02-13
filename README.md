@@ -12,6 +12,8 @@ Feel free to use AI tools to help you complete the work — we use a lot of Clau
 
 When you're finished, see the [Submission](#submission) section at the bottom for how to submit your work.
 
+If you run into any problems or have questions, feel free to reach out to mike@hifinance.ca.
+
 ## Tasks
 
 ### Task 1: Client Detail Page
