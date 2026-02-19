@@ -4,6 +4,12 @@ from sqlalchemy.orm import Session
 from server.business.client.schema import PClient
 from server.data.models.client import Client
 
+
+def list_clients(session: Session) -> list[PClient]:
+    clients = session.execute(select(Client)).scalars().all()
+    return [PClient.model_validate(client) for client in clients]
+
+
 def get_client(session: Session, client_id: str) -> PClient | None:
     client = session.get(Client, client_id)
 
@@ -13,6 +19,3 @@ def get_client(session: Session, client_id: str) -> PClient | None:
     return PClient.model_validate(client)
 
 
-def list_clients(session: Session) -> list[PClient]:
-    clients = session.execute(select(Client)).scalars().all()
-    return [PClient.model_validate(client) for client in clients]

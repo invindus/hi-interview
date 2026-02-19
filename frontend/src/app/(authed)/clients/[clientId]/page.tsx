@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 
 import { useApi } from "@/api/context";
 import { Client } from "@/types/clients";
+import Notes from "@/app/(authed)/components/Notes";
 
 import styles from "./page.module.scss";
 
@@ -69,6 +70,8 @@ export default function ClientDetailsPage() {
                 </Table.Tr>
                 </Table.Tbody>
             </Table>
+
+            <Notes/>
         </div>
     );
 }

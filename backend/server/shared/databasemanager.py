@@ -1,3 +1,5 @@
+import server.data.models.all  # make sure all models are loaded
+
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
 

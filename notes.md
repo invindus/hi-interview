@@ -9,7 +9,11 @@
 
 - yarn install: OK
 
+---
+
 Going through all tasks to see if I can work on anything at the same time.
+
+---
 
 # Task 1
 Admin click on client, go to detail page with full client info.
@@ -23,6 +27,14 @@ Admin click on client, go to detail page with full client info.
     assigned_user_id: str | None
     created_at: datetime
     updated_at: datetime
+
+- Adding details page to front end.
+    - Creating getClient method to fetch single user's details
+    - On click of row, route to details page
+
+- In backend, creating CRUD
+    - Renamed list.py to service.py
+    - Client GET route
 
 # Task 2
 Notes feature on client details page
@@ -44,6 +56,19 @@ Data Model
     completed_at: datetime
     completed_by: str
     status (open, closed): enum
+
+Backend
+- Create notes model, schema
+- Update client model with note relationship
+- update migration
+- load imports in database manager to properly locate Notes
+- Create notes CRUD
+- CRUD routing, include in route/app.py router
+
+Frontend
+- add notes component to details page
+- add way to create note
+
 
 
 # Task 3
