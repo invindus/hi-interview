@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 import enum
 
@@ -28,11 +28,13 @@ class PNoteCreate(BaseModel):
     due_date: Optional[datetime] = None
     status: Optional[NoteStatus] = NoteStatus.open
 
+
 class PNoteUpdate(BaseModel):
     content: Optional[str] = None
     type: Optional[NoteType] = None
     status: Optional[NoteStatus] = None
     completed_at: Optional[datetime] = None
+
 
 class PNoteRead(BaseModel):
     id: str
@@ -44,5 +46,3 @@ class PNoteRead(BaseModel):
     created_at: datetime
     updated_at: datetime
 
-class PNotesList(BaseModel):
-    data: List[PNoteRead]

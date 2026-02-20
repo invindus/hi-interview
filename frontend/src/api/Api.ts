@@ -4,6 +4,7 @@ import { AuthData } from "@/types";
 
 import ClientsApi from "./clients";
 import NotesApi from "./notes";
+import UsersApi from "./users";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:10001";
 export const AUTH_DATA_KEY = "auth-data";
@@ -27,6 +28,7 @@ export default class Api {
 
     public clients: ClientsApi;
     public notes: NotesApi;
+    public users: UsersApi;
 
     constructor() {
         this.axiosInstance = axios.create({
@@ -40,6 +42,7 @@ export default class Api {
 
         this.clients = new ClientsApi(this.axiosInstance);
         this.notes = new NotesApi(this.axiosInstance);
+        this.users = new UsersApi(this.axiosInstance);
     }
 
     private configureInterceptors() {

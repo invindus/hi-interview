@@ -1,8 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
-from server.business.client.schema import PClient
+from server.business.client.schema import PClient, PClientCreate
 from server.data.models.client import Client
+from server.data.models.user import User
 
 
 def list_clients(session: Session) -> list[PClient]:
@@ -19,3 +21,38 @@ def get_client(session: Session, client_id: str) -> PClient | None:
     return PClient.model_validate(client)
 
 
+def create_client(session: Session, client_data: PClientCreate) -> PClient:
+    """
+    Creates a new client. 
+    Optionally assigns to a user if assigned_user_id is provided.
+    Raises ValueError if email already exists or assigned user doesn't exist.
+    """
+
+    # Check for duplicate email
+    existing = session.execute(
+        select(Client).where(Client.email == client_data.email)
+    ).scalar_one_or_none()
+    if existing:
+        raise ValueError("Client email already exists")
+
+    # Validate assigned user if provided
+    if client_data.assigned_user_id:
+        user = session.get(User, client_data.assigned_user_id)
+        if not user:
+            raise ValueError("Assigned user does not exist")
+
+    new_client = Client(
+        email=client_data.email,
+        first_name=client_data.first_name,
+        last_name=client_data.last_name,
+        assigned_user_id=client_data.assigned_user_id,
+    )
+    session.add(new_client)
+    try:
+        session.commit()
+        session.refresh(new_client)
+    except IntegrityError as e: # Incase adding a client with an email that already exists
+        session.rollback()
+        raise ValueError(f"Database error: {str(e)}")
+
+    return PClient.model_validate(new_client)

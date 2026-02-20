@@ -8,3 +8,8 @@ class PUser(BaseModel):
     email: str
     password_hashed: str | None
     created_at: datetime
+
+
+class PUserRead(BaseModel):
+    id: str
+    email: str

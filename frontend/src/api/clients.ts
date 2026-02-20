@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 
-import { Client } from "@/types/clients";
+import { Client, CreateClientPayload } from "@/types/clients";
+
 
 export default class ClientsApi {
     private axiosInstance: AxiosInstance;
@@ -19,5 +20,11 @@ export default class ClientsApi {
     public listClients = async (): Promise<Client[]> => {
         const response = await this.axiosInstance.get<{ data: Client[] }>("client");
         return response.data.data;
+    };
+
+    // Create a new client
+    public createClient = async (payload: CreateClientPayload): Promise<Client> => {
+        const response = await this.axiosInstance.post<Client>("client", payload);
+        return response.data;
     };
 }

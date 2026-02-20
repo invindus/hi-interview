@@ -1,11 +1,12 @@
 "use client";
 
-import { Table, Title } from "@mantine/core";
+import { Button, Group, Table, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useApi } from "@/api/context";
 import { Client } from "@/types/clients";
+import CreateClientModal from "@/app/(authed)/components/CreateClientModal";
 
 import styles from "./page.module.scss";
 
@@ -14,6 +15,7 @@ export default function ClientsPage() {
     const api = useApi();
     const [clients, setClients] = useState<Client[]>([]);
     const [loading, setLoading] = useState(true);
+    const [modalOpened, setModalOpened] = useState(false);
 
     useEffect(() => {
         api.clients.listClients()
@@ -27,12 +29,13 @@ export default function ClientsPage() {
 
     return (
         <div className={styles.container}>
-            <Title
-                order={2}
-                className={styles.title}
-            >
-                Clients
-            </Title>
+            <Group justify="space-between" style={{ marginBottom: 20 }}>
+                <Title order={2} className={styles.title}>
+                    Clients
+                </Title>
+                <Button color="blue" onClick={() => setModalOpened(true)}>Create Client</Button>
+            </Group>
+
             <Table
                 striped
                 highlightOnHover
@@ -60,6 +63,11 @@ export default function ClientsPage() {
                     ))}
                 </Table.Tbody>
             </Table>
+            <CreateClientModal
+                opened={modalOpened}
+                onClose={() => setModalOpened(false)}
+                onClientCreated={(newClient) => setClients(prev => [...prev, newClient])}
+            />
         </div>
     );
 }

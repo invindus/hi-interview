@@ -7,3 +7,10 @@ export interface Client {
     created_at: string;
     updated_at: string;
 }
+
+export interface CreateClientPayload {
+  first_name: string;
+  last_name: string;
+  email: string;
+  assigned_user_id?: string;
+}
