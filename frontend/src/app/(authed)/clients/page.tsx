@@ -33,7 +33,7 @@ export default function ClientsPage() {
                 <Title order={2} className={styles.title}>
                     Clients
                 </Title>
-                <Button color="blue" onClick={() => setModalOpened(true)}>Create Client</Button>
+                <Button onClick={() => setModalOpened(true)}>Create Client</Button>
             </Group>
 
             <Table

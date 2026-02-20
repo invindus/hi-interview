@@ -19,9 +19,10 @@ class AuthVerifier:
         self.config = config
 
     def get_user_token_info(
-        self, credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)
+        self, token: str = Depends(oauth2_scheme)
+        # self, credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)
     ) -> UserTokenInfo:
-        token = credentials.credentials
+        # token = credentials.credentials
         try:
             payload = jwt.decode(
                 token, self.config.access_token_secret_key, algorithms=["HS256"]

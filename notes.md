@@ -91,3 +91,5 @@ Frontend
 - error handling when inputting email that already exists (and for editing client)
 
 
+# Testing
+- All tests passed, warnings for insecure key minimum length

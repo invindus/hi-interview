@@ -122,6 +122,7 @@ export default function ClientDetailsPage() {
                     </Table.Tr>
                 </Table.Tbody>
             </Table>
+            
             <Notes />
 
             <EditClientModal
