@@ -1,0 +1,66 @@
+/* Container adjustments */
+.NoteModal {
+  .mantine-Modal-body {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* --- Badge Styling --- */
+.BadgeGroup {
+  display: flex;
+  gap: 0.5rem;
+
+  .mantine-Badge-root {
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+}
+
+/* --- Paper cards --- */
+.NoteCard {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  h4 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: #555;
+    white-space: pre-wrap;
+  }
+}
+
+/* --- Metadata text --- */
+.MetadataText {
+  font-size: 0.875rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+
+  strong {
+    color: #333;
+  }
+}
+
+/* --- Action buttons --- */
+.ButtonGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+/* --- Edit mode spacing --- */
+.EditModeStack {
+  textarea,
+  .mantine-Select-root {
+    margin-bottom: 0.75rem;
+  }
+}

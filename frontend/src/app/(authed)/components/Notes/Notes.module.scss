@@ -1,0 +1,16 @@
+.title {
+    margin-bottom: var(--mantine-spacing-lg);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+}

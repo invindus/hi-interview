@@ -26,6 +26,8 @@ class PNoteCreate(BaseModel):
     content: str
     type: NoteType
     due_date: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    completed_by: Optional[str] = None
     status: Optional[NoteStatus] = NoteStatus.open
 
 
@@ -33,16 +35,25 @@ class PNoteUpdate(BaseModel):
     content: Optional[str] = None
     type: Optional[NoteType] = None
     status: Optional[NoteStatus] = None
+    due_date: Optional[datetime] = None
     completed_at: Optional[datetime] = None
+    completed_by: Optional[str] = None
+
+
+class UserInfo(BaseModel):
+    id: str
+    email: str
 
 
 class PNoteRead(BaseModel):
     id: str
-    client_id: str
+    type: str
     content: str
-    type: NoteType
-    created_by: str
-    status: NoteStatus
     created_at: datetime
+    created_by: str
     updated_at: datetime
-
+    due_date: Optional[datetime]
+    completed_at: Optional[datetime]
+    completed_by: Optional[str]
+    status: str
+    creator: UserInfo

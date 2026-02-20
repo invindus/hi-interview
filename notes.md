@@ -44,21 +44,6 @@ Notes feature on client details page
 - Another CRUD API for notes
 Show created_by and created_at
 
-Data Model
-    id: str
-    client_id (FK): str 
-    type (actionItem, reminder, summary): enum
-    content: text
-    created_by: str
-    created_at: datetime
-
-    is_deleted: bool
-    deleted_at: datetime
-    due_date: datetime
-    completed_at: datetime
-    completed_by: str
-    status (open, closed): enum
-
 Backend
 - Create notes model, schema
 - Update client model with note relationship
@@ -71,7 +56,7 @@ Frontend
 - add notes component to details page
 - add way to create note
 - update note
-- delete note
+- delete note, add confirmation
 - add pagination
 - modal view show more details on note
 - different views per note type (reminder checkbox, summary text field, )
@@ -84,6 +69,7 @@ Backend
 - create client method
 - fetch users in systems to see list of unassigned emails (users) so it can be assigned when created new client
 - added update and delete methods
+- confirmation to delete client
 
 Frontend
 - Modal for creating a client
@@ -93,3 +79,9 @@ Frontend
 
 # Testing
 - All tests passed, warnings for insecure key minimum length
+- added 6 more tests to test_client
+
+
+# UI
+- create different ui for each note type
+- add create note button top right of each note view

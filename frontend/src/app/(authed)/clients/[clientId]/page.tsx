@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Checkbox, Group, Modal, Table, TextInput, Title } from "@mantine/core";
+import { Button, Checkbox, Divider, Group, Modal, Table, TextInput, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 
@@ -122,7 +122,7 @@ export default function ClientDetailsPage() {
                     </Table.Tr>
                 </Table.Tbody>
             </Table>
-            
+
             <Notes />
 
             <EditClientModal

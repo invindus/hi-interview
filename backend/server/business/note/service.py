@@ -1,15 +1,24 @@
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 
 from server.business.note.schema import PNoteCreate, PNoteRead, PNoteUpdate
 from server.data.models.note import Note
 
 
 def list_notes(session: Session, client_id: str) -> list[PNoteRead]:
-    """List all notes for a given client"""
-    notes = session.execute(
-        select(Note).where(Note.client_id == client_id)
-    ).scalars().all()
+    """List all notes for a given client with creator and completer info"""
+    notes = (
+        session.execute(
+            select(Note)
+            .where(Note.client_id == client_id)
+            .options(
+                selectinload(Note.creator),  # load the full User object for creator
+            )
+        )
+        .scalars()
+        .all()
+    )
+
     return [PNoteRead.model_validate(n) for n in notes]
 
 

@@ -46,7 +46,7 @@ class Note(BaseModel):
     )
     due_date: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     completed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    completed_by: Mapped[str | None] = mapped_column(String, ForeignKey("user.id"), nullable=True)
+    completed_by: Mapped[str | None] = mapped_column(String, nullable=True)
     status: Mapped[NoteStatus] = mapped_column(
         Enum(NoteStatus), nullable=False, default=NoteStatus.open
     )
@@ -55,4 +55,3 @@ class Note(BaseModel):
     # Relationships
     client: Mapped["Client"] = relationship("Client", back_populates="notes")
     creator: Mapped["User"] = relationship("User", foreign_keys=[created_by])
-    completer: Mapped["User | None"] = relationship("User", foreign_keys=[completed_by])
