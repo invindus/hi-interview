@@ -2,7 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 
-from server.business.client.schema import PClient, PClientCreate
+from server.business.client.schema import PClient, PClientCreate, PClientUpdate
 from server.data.models.client import Client
 from server.data.models.user import User
 
@@ -56,3 +56,57 @@ def create_client(session: Session, client_data: PClientCreate) -> PClient:
         raise ValueError(f"Database error: {str(e)}")
 
     return PClient.model_validate(new_client)
+
+
+def update_client(
+    session: Session, client_id: str, client_data: PClientUpdate
+) -> PClient:
+    """
+    Update an existing client.
+    Raises ValueError if client does not exist, email duplicates, or assigned user doesn't exist.
+    """
+    client = session.get(Client, client_id)
+    if not client:
+        raise ValueError(f"Client with id '{client_id}' not found")
+
+    # Check if email is changing and duplicates another client
+    if client.email != client_data.email:
+        existing = session.execute(
+            select(Client).where(Client.email == client_data.email)
+        ).scalar_one_or_none()
+        if existing:
+            raise ValueError("Client email already exists")
+
+    # Validate assigned user if provided
+    if client_data.assigned_user_id:
+        user = session.get(User, client_data.assigned_user_id)
+        if not user:
+            raise ValueError("Assigned user does not exist")
+
+    # Update fields
+    client.email = client_data.email
+    client.first_name = client_data.first_name
+    client.last_name = client_data.last_name
+    client.assigned_user_id = client_data.assigned_user_id
+
+    try:
+        session.commit()
+        session.refresh(client)
+    except IntegrityError as e:
+        session.rollback()
+        raise ValueError(f"Database error: {str(e)}")
+
+    return PClient.model_validate(client)
+
+
+def delete_client(session: Session, client_id: str) -> None:
+    """
+    Delete a client by ID.
+    Raises ValueError if client does not exist.
+    """
+    client = session.get(Client, client_id)
+    if not client:
+        raise ValueError(f"Client with id '{client_id}' not found")
+
+    session.delete(client)
+    session.commit()

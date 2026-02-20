@@ -5,6 +5,7 @@ from server.routes.auth import get_router as get_router_auth
 from server.routes.client import get_router as get_router_client
 from server.routes.ping import get_router as get_router_ping
 from server.routes.note import get_router as get_router_note
+from server.routes.user import get_router as get_router_user
 from server.shared.config import Config
 from server.shared.databasemanager import DatabaseManager
 
@@ -20,5 +21,6 @@ def get_all_routes(
     router.include_router(get_router_auth(config, database, auth_verifier))
     router.include_router(get_router_client(database, auth_verifier))
     router.include_router(get_router_note(database, auth_verifier))
+    router.include_router(get_router_user(database, auth_verifier))
 
     return router

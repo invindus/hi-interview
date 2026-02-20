@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import { useApi } from "@/api/context";
 import { Note, NoteType } from "@/types/notes";
 
-import NoteModal from "./NoteModal";
+import NoteModal from "../NoteModal/NoteModal";
 import styles from "./Notes.module.scss";
 
 export default function Notes() {

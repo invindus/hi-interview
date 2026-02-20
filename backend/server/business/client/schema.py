@@ -20,3 +20,10 @@ class PClientCreate(BaseModel):
     first_name: str
     last_name: str
     assigned_user_id: Optional[str] = None
+
+
+class PClientUpdate(BaseModel):
+    email: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    assigned_user_id: Optional[str] = None

@@ -1,6 +1,6 @@
 "use client";
 
-import NavigationMenu from "./components/NavigationMenu";
+import NavigationMenu from "./components/NavigationMenu/NavigationMenu";
 
 interface ComponentProps {
     children: React.ReactNode;

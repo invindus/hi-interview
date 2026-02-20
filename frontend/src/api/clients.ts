@@ -27,4 +27,18 @@ export default class ClientsApi {
         const response = await this.axiosInstance.post<Client>("client", payload);
         return response.data;
     };
+
+    // Update an existing client
+    public updateClient = async (
+        id: string,
+        payload: Partial<CreateClientPayload>
+    ): Promise<Client> => {
+        const response = await this.axiosInstance.put<Client>(`client/${id}`, payload);
+        return response.data;
+    };
+
+    // Delete a client
+    public deleteClient = async (id: string): Promise<void> => {
+        await this.axiosInstance.delete(`client/${id}`);
+    };
 }

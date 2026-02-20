@@ -1,5 +1,9 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import (
+    OAuth2PasswordBearer,
+    HTTPBearer,
+    HTTPAuthorizationCredentials,
+)
 
 import jwt
 
@@ -7,6 +11,7 @@ from server.business.auth.schema import UserTokenInfo
 from server.shared.config import Config
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+bearer_scheme = HTTPBearer()
 
 
 class AuthVerifier:
@@ -14,8 +19,9 @@ class AuthVerifier:
         self.config = config
 
     def get_user_token_info(
-        self, token: str = Depends(oauth2_scheme)
+        self, credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)
     ) -> UserTokenInfo:
+        token = credentials.credentials
         try:
             payload = jwt.decode(
                 token, self.config.access_token_secret_key, algorithms=["HS256"]

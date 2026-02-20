@@ -7,6 +7,7 @@
 
   Email:    admin@hi.com
   Password: password
+    - NOTE: changed Swagger auth to HTTPBearer instead of OAuth bc username (admin@hi.com) and password weren't working to authorize backend API testing
 
 - yarn install: OK
 
@@ -79,4 +80,14 @@ Frontend
 
 # Task 3
 Admins create new clients on front-end
-- Add live updates to clinet list when new client is added
+Backend
+- create client method
+- fetch users in systems to see list of unassigned emails (users) so it can be assigned when created new client
+- added update and delete methods
+
+Frontend
+- Modal for creating a client
+- edit and delete options
+- error handling when inputting email that already exists (and for editing client)
+
+

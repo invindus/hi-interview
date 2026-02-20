@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { useApi } from "@/api/context";
 import { Client } from "@/types/clients";
-import CreateClientModal from "@/app/(authed)/components/CreateClientModal";
+import CreateClientModal from "@/app/(authed)/components/CreateClientModal/CreateClientModal";
 
 import styles from "./page.module.scss";
 

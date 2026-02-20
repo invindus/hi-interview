@@ -6,7 +6,6 @@ import { useForm } from "@mantine/form";
 
 import { useApi } from "@/api/context";
 import { Client } from "@/types/clients";
-import { User } from "@/types/users";
 
 
 interface CreateClientModalProps {
@@ -17,8 +16,8 @@ interface CreateClientModalProps {
 
 export default function CreateClientModal({ opened, onClose, onClientCreated }: CreateClientModalProps) {
     const api = useApi();
-    const [users, setUsers] = useState<User[]>([]);
     const [userOptions, setUserOptions] = useState<{ value: string; label: string }[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const form = useForm({
         initialValues: {
@@ -45,6 +44,8 @@ export default function CreateClientModal({ opened, onClose, onClientCreated }: 
 
     const handleSubmit = async (values: typeof form.values) => {
         try {
+            setError(null);
+
             const payload = {
                 first_name: values.first_name,
                 last_name: values.last_name,
@@ -55,11 +56,11 @@ export default function CreateClientModal({ opened, onClose, onClientCreated }: 
             onClientCreated(newClient);
             onClose();
             form.reset();
-        } catch (err) {
-            console.error(err);
+        } catch (err: any) {
+            const message = err?.response?.data?.detail || "Something went wrong";
+            setError(message);
         }
     };
-
 
     return (
     <Modal
@@ -68,6 +69,11 @@ export default function CreateClientModal({ opened, onClose, onClientCreated }: 
       title="Create Client"
       centered
     >
+        {error && (
+            <div style={{ color: "red", marginBottom: 12 }}>
+                {error}
+            </div>
+        )}
         <form onSubmit={form.onSubmit(handleSubmit)}>
             <TextInput
                 label="First Name"
