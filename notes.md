@@ -1,4 +1,5 @@
 # Setup
+- Make sure local postgres service isnt running
 - Installing poetry, alembic: OK
 - Need to run `poetry install` before running migrations so that it can find project root
 - poetry install: OK
@@ -68,6 +69,11 @@ Backend
 Frontend
 - add notes component to details page
 - add way to create note
+- update note
+- delete note
+- add pagination
+- modal view show more details on note
+- different views per note type (reminder checkbox, summary text field, )
 
 
 
