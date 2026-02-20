@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Group, Modal, TextInput } from "@mantine/core";
+import { Button, Group, Modal, Select, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 import { useApi } from "@/api/context";
@@ -17,12 +17,21 @@ interface EditClientModalProps {
 export default function EditClientModal({ opened, onClose, client, onSave }: EditClientModalProps) {
     const api = useApi();
     const [error, setError] = useState<string | null>(null);
+    const [userOptions, setUserOptions] = useState<{ value: string; label: string }[]>([]);
 
     const [form, setForm] = useState({
         email: "",
         first_name: "",
         last_name: "",
+        assigned_user_id: null as string | null,
     });
+
+    // Load users for dropdown
+    useEffect(() => {
+        api.users.listUsers().then((users) => {
+            setUserOptions(users.map(u => ({ value: u.id, label: u.email })));
+        });
+    }, [api]);
 
     useEffect(() => {
         if (client) {
@@ -30,6 +39,7 @@ export default function EditClientModal({ opened, onClose, client, onSave }: Edi
                 email: client.email,
                 first_name: client.first_name,
                 last_name: client.last_name,
+                assigned_user_id: client.assigned_user_id || null,
             });
         }
         setError(null);
@@ -41,9 +51,16 @@ export default function EditClientModal({ opened, onClose, client, onSave }: Edi
         try {
             setError(null);
 
-            await api.clients.updateClient(client.id, form);
+            const payload = {
+                first_name: form.first_name,
+                last_name: form.last_name,
+                email: form.email,
+                ...(form.assigned_user_id ? { assigned_user_id: form.assigned_user_id } : {}),
+            };
 
-            await onSave(); // notify parent only after success
+            await api.clients.updateClient(client.id, payload);
+
+            await onSave();
         } catch (err: any) {
             const message =
                 err?.response?.data?.detail || "Something went wrong";
@@ -81,6 +98,18 @@ export default function EditClientModal({ opened, onClose, client, onSave }: Edi
                 onChange={(e) =>
                     setForm({ ...form, last_name: e.currentTarget.value })
                 }
+                mb="md"
+            />
+            <Select
+                label="Assign User"
+                placeholder="Optional"
+                data={userOptions}
+                value={form.assigned_user_id || ""}
+                onChange={(v) =>
+                    setForm({ ...form, assigned_user_id: v || null })
+                }
+                searchable
+                clearable
                 mb="md"
             />
 
