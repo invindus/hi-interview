@@ -57,7 +57,6 @@ Frontend
 - add way to create note
 - update note
 - delete note, add confirmation
-- add pagination
 - modal view show more details on note
 - different views per note type (reminder checkbox, summary text field, )
 
@@ -85,3 +84,7 @@ Frontend
 # UI
 - create different ui for each note type
 - add create note button top right of each note view
+- limit note content text amount on list view
+
+# Future Work
+- Note pagination

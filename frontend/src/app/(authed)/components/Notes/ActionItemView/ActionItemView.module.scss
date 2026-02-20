@@ -24,7 +24,16 @@
     }
 
     .Content {
-      white-space: pre-wrap;
+      display: -webkit-box;
+      -webkit-box-orient: vertical; 
+      -webkit-line-clamp: 1; 
+
+      display: box;
+      box-orient: vertical;
+      line-clamp: 1;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .mantine-Badge-root {

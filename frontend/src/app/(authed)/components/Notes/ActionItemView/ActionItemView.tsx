@@ -20,6 +20,7 @@ export default function ActionItemView({ notes, onSelect, onCreate }: ActionItem
                     +
                 </Button>
             </Group>
+            
             {notes.length === 0 && (
                 <Text c="dimmed" size="sm" className={styles.EmptyText}>
                 No action items
